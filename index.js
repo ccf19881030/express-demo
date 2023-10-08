@@ -64,6 +64,26 @@ app.post('/api/courses', (req, res) => {
     res.send(course);
 });
 
+// 更新课程信息
+app.put('/api/courses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) {
+        return res.status(404).send(`The course with the given ID ${req.params.id} was not found`);
+    }
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+        videoAdress: Joi.string().required()
+    });
+    const result = schema.validate(req.body);
+    if (result.error) {
+        return res.status(400).send(result.error.details[0].message);
+    }
+    // Update the course
+    course.name = req.body.name;
+    course.videoAdress = req.body.videoAdress;
+    res.send(course);
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {

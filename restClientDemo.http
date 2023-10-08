@@ -6,10 +6,19 @@ GET http://localhost:3000 HTTP/1.1
 GET http://localhost:3000/api/courses HTTP/1.1
 
 ### 根据课程id获取对应的课程信息
-GET http://localhost:3000/api/courses/10 HTTP/1.1
+GET http://localhost:3000/api/courses/1 HTTP/1.1
 
 ###
 POST http://localhost:3000/api/courses HTTP/1.1
+content-type: application/json
+
+{
+    "name": "C++ Threads Using Boost in 5 Minutes",
+    "videoAdress": "https://www.youtube.com/watch?v=-Qa1RqmXKG0"
+}
+
+### 修改课程信息
+PUT http://localhost:3000/api/courses/1 HTTP/1.1
 content-type: application/json
 
 {
