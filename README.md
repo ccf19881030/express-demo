@@ -5,6 +5,7 @@ Learn to build a REST API with Node js & Express in just 1 hour!
 
 Want to learn more from me? Check out my blog and courses: 
 
+```
 Courses: https://codewithmosh.com
 Blog: https://programmingwithmosh.com 
 Facebook: https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbU1nVVAyNWE5SWtUcDI3cTRqQWNkSGxFSmVWd3xBQ3Jtc0trVXJZMFlLUlQxLU5tUEotbUZOWl9yMTVVQjlZVUd5ekxWeGFXUi1ZUlVWd25zczdXVko5bGFEWlBFeU03T3Nqd3l2QlYtMlpWSWhVUjNjbVFtWjhLM3o1cDV1Q3pZbmJvdm80UUNUYlEybnBRMmFKYw&q=https%3A%2F%2Fwww.facebook.com%2Fprogrammingwithmosh%2F&v=pKd0Rpw7O48
@@ -24,3 +25,4 @@ TABLE OF CONTENT:
 36:03 Input Validation
 44:03 Handling HTTP PUT Requests
 52:33 Handling HTTP DELETE Requests
+```
