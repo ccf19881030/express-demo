@@ -26,6 +26,9 @@ content-type: application/json
     "videoAdress": "https://www.youtube.com/watch?v=-Qa1RqmXKG0"
 }
 
+### 根据课程Id删除某个课程
+DELETE http://localhost:3000/api/courses/1 HTTP/1.1
+
 
 
 
