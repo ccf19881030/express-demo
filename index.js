@@ -1,4 +1,5 @@
 /*jshint esversion: 6 */
+const Joi = require('joi');
 const exp = require('constants');
 const express = require('express');
 const app = express();
@@ -34,6 +35,26 @@ app.get('/api/courses/:id', (req, res) => {
 
 // 新增一个课程
 app.post('/api/courses', (req, res) => {
+    // validate the input request body
+    // if (!req.body.name || req.body.name.length < 3) {
+    //     // 400 Bad request
+    //     res.status(400).send('The name is required and the mininal Length is 3 characters');
+    //     return;
+    // }
+    // if (!req.body.videoAdress) {
+    //     res.status(400).send('The videoAdress is required');
+    //     return;
+    // }
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+        videoAdress: Joi.string().required()
+    });
+    const result = schema.validate(req.body);
+    //console.log(result);
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
     const course = {
         id: courses.length + 1,
         name: req.body.name,
