@@ -13,19 +13,26 @@ var courses = [
     { id: 4, name: "HTML Tutorial for Beginners: HTML Crash Course", videoAdress: "https://www.youtube.com/watch?v=qz0aGYrrlhU&list=RDCMUCWv7vMbMWH4-V0ZXdmDpPBA&index=2"}
 ];
 
+// 校验课程输入参数
+function validateCourse(course) {
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+        videoAdress: Joi.string().required()
+    });
+    return schema.validate(course);
+}
+
 app.get('/', (req, res) => {
     res.send('Hello World, this is a course express node.js examples');
 });
 
 // 获取所有的课程列表
 app.get('/api/courses', (req, res) => {
-    //res.send(JSON.stringify([1, 2, 3]));
     res.send(courses);
 });
 
 // 根据课程id获取对应的课程信息
 app.get('/api/courses/:id', (req, res) => {
-    //res.send(req.params.id);
     const course = courses.find(c => c.id === parseInt(req.params.id));
     if (!course) {
         return res.status(404).send(`The course with the given ID ${req.params.id} was not found`);
@@ -35,25 +42,10 @@ app.get('/api/courses/:id', (req, res) => {
 
 // 新增一个课程
 app.post('/api/courses', (req, res) => {
-    // validate the input request body
-    // if (!req.body.name || req.body.name.length < 3) {
-    //     // 400 Bad request
-    //     res.status(400).send('The name is required and the mininal Length is 3 characters');
-    //     return;
-    // }
-    // if (!req.body.videoAdress) {
-    //     res.status(400).send('The videoAdress is required');
-    //     return;
-    // }
-    const schema = Joi.object({
-        name: Joi.string().min(3).required(),
-        videoAdress: Joi.string().required()
-    });
-    const result = schema.validate(req.body);
-    //console.log(result);
-    if (result.error) {
-        res.status(400).send(result.error.details[0].message);
-        return;
+    // 解构赋值
+    const { error } = validateCourse(req.body);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
     }
     const course = {
         id: courses.length + 1,
@@ -70,17 +62,14 @@ app.put('/api/courses/:id', (req, res) => {
     if (!course) {
         return res.status(404).send(`The course with the given ID ${req.params.id} was not found`);
     }
-    const schema = Joi.object({
-        name: Joi.string().min(3).required(),
-        videoAdress: Joi.string().required()
-    });
-    const result = schema.validate(req.body);
-    if (result.error) {
-        return res.status(400).send(result.error.details[0].message);
+    const { error } = validateCourse(req.body);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
     }
     // Update the course
     course.name = req.body.name;
     course.videoAdress = req.body.videoAdress;
+    // 返回更新后的课程信息
     res.send(course);
 });
 
